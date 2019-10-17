@@ -29,7 +29,7 @@ typedef struct{
 } QueueType;
 
 
-// 공백 순차 큐를 생성하는 연산 
+// 공백 순차 큐를 생성하는 연산
 QueueType *createQueue(){
 	QueueType *Q;
 	Q = (QueueType *)malloc(sizeof(QueueType));
@@ -38,7 +38,7 @@ QueueType *createQueue(){
 	return Q;
 }
 
-// 순차 큐가 공백 상태인지 검사하는 연산 
+// 순차 큐가 공백 상태인지 검사하는 연산
 int isEmpty(QueueType *Q){
 	if(Q->front == Q->rear){
 		printf("Queue is empty!");
@@ -46,7 +46,7 @@ int isEmpty(QueueType *Q){
 	else return 0;
 }
 
-// 순차 큐의 rear에 원소를 삽입하는 연산 
+// 순차 큐의 rear에 원소를 삽입하는 연산
 void enQueue(QueueType *Q, Element item){
 	if(isFull(Q)) return;
 	else{
@@ -67,10 +67,10 @@ Element deQueue(QueueType *Q){
 Element peek(QueueType *Q){
 	if(isEmpty(Q)) exit(1);
 	else return Q->queue[Q->rear +1];
-} 
+}
 
 void isFull(){
-	
+
 }
 
 // 순차 큐의 원소를 출력하는 연사
@@ -81,7 +81,7 @@ void printfQ(QueueType *Q){
 		printf("%3c", Q->queue[i]);
 	}
 	printf(" ]");
-} 
+}
 
 int main(int argc, char *argv[]) {
 	char arr[3] = {'A', 'B', 'C'};
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 		printf("\n");
 	}
 	printf("peek item: %c", peek(Q));
-	
+
 	for(i=0; i<sizeof(arr); i++){
 		printf("삭제 >> ");
 		deQueue(Q);
@@ -107,4 +107,3 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 ~~~
-
