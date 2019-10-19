@@ -123,8 +123,6 @@ int main(int argc, char* argv[]) {
 }
 ~~~
 
-
-
 ~~~c
 //2번문제
 #include <stdio.h>
@@ -361,5 +359,129 @@ int main(int argc, char* argv[]) {
 	print_result();
 	return 0;
 }
+
+~~~
+
+
+
+~~~c
+//4번 문제
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#define MAX_QUEUE_SIZE 10
+//타입은 int형이다
+typedef int Element;
+//초기값은 0;
+int rear, front = 0;
+//원형큐 크기는 10이다.
+Element data[MAX_QUEUE_SIZE];
+
+//큐초기화 함수
+void init_queue() {
+	rear = 0;
+	front = 0;
+}
+
+//데큐초기화
+void init_deque() {
+	rear = 0;
+	front = 0;
+}
+
+//
+void enqueue(Element val) {
+	if (rear < 0) {
+		rear = (rear + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	rear = rear % MAX_QUEUE_SIZE;
+	data[rear++] = val;
+}
+
+Element dequeue() {
+	if (front < 0) {
+		front = (front + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	if (rear < front) {
+		return data[front++];
+	}
+	else {
+		return data[front--];
+	}
+
+}
+
+Element peek() {
+	if (front < 0) {
+		front = (front + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	return data[front];
+}
+void add_rear(Element val)
+{
+	enqueue(val);
+}
+
+void add_front(Element val) {
+	front -= 1;
+	if (front < 0) {
+		front = (front + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	data[front] = val;
+}
+
+Element delete_front() {
+	return dequeue();
+}
+
+Element delete_rear() {
+	if (rear < 0) {
+		rear = (rear + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	return data[--rear];
+}
+
+Element get_front() {
+	return peek();
+}
+
+void print_queue(char msg[]) {
+	printf("%s  \n", msg);
+	int tmp = front;
+	if (tmp < 0) {
+		tmp = (tmp + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	}
+	while (tmp != rear) {
+		printf("tmp : %d .... %3d\n", tmp, data[tmp]);
+		tmp = (tmp + 1) % MAX_QUEUE_SIZE;
+	}
+	printf("\n");
+}
+
+int main(int argc, char* argv[]) {
+	int i;
+	init_deque();
+	for (i = 1; i < 10; i++) {
+		if (i % 2 == 0) {
+			add_front(i);
+			printf("front : %d   rear : %d\n", front, rear);
+		}
+		else {
+			add_rear(i);
+			printf("front : %d   rear : %d\n", front, rear);
+		}
+	}
+	print_queue("원형 덱 홀수 - 짝수");
+	printf("front : %d   rear : %d\n", front, rear);
+	printf("\t delete_front() --> %d\n", delete_front());
+	printf("front : %d   rear : %d\n", front, rear);
+	printf("\t delete_rear --> %d\n", delete_rear());
+	printf("front : %d   rear : %d\n", front, rear);
+	printf("\t delete_front() --> %d\n", delete_front());
+	printf("front : %d   rear : %d\n", front, rear);
+	print_queue("원형 덱 삭제-홀짝홀");
+	return 0;
+}
+
 
 ~~~
